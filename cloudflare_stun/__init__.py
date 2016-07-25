@@ -111,10 +111,10 @@ class App():
     def do_update(self):
         extrn_ip = self.get_external_ip()
         if extrn_ip is None:
-            print("Cannot determine external IP!")
+            logger.error("Cannot determine external IP!")
             exit(1)
         else:
-            print("External IP: {}".format(extrn_ip))
+            logger.info("External IP: {}".format(extrn_ip))
         try:
             zone_id, record_id, record_content = self.get_record_id(self.zone, self.record)
         except ValueError:
@@ -133,7 +133,7 @@ class App():
             try:
                 value = os.environ[param.replace('-', '_').upper()]
             except KeyError:
-                print("Must set {} environment variable if --{} is not passed on the command line".format(
+                logger.error("Must set {} environment variable if --{} is not passed on the command line".format(
                     param.replace('-', '_').upper(),
                     param
                 ))
@@ -153,8 +153,12 @@ class App():
         parser.add_argument('--stun-server', default=None)
         parser.add_argument('--stun-port', default=3478, type=int)
         parser.add_argument('--ttl', default=120)
-        parser.add_argument('--debug', action='store_true')
         parser.add_argument('--force-update', action='store_true')
+
+        log_group = parser.add_mutually_exclusive_group()
+        log_group.add_argument('--debug', action='store_true')
+        log_group.add_argument('--quiet', action='store_true')
+
         args = parser.parse_args()
 
         cf_auth_key = App._get_from_environment(args, 'cf-auth-key')
@@ -162,6 +166,8 @@ class App():
 
         if args.debug:
             logging.basicConfig(level=logging.DEBUG)
+        elif not args.quiet:
+            logging.basicConfig(level=logging.INFO)
 
         app = App(args.zone, args.record_name, cf_auth_key, cf_auth_email, args.stun_server, args.stun_port, args.ttl, args.force_update)
         app.do_update()
