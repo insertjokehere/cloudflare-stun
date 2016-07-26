@@ -146,18 +146,18 @@ class App():
     @staticmethod
     def main():
         parser = argparse.ArgumentParser()
-        parser.add_argument('--zone', required=True)
-        parser.add_argument('--record-name', required=True)
-        parser.add_argument('--cf-auth-key', required=False)
-        parser.add_argument('--cf-auth-email', required=False)
-        parser.add_argument('--stun-server', default=None)
-        parser.add_argument('--stun-port', default=3478, type=int)
-        parser.add_argument('--ttl', default=120)
-        parser.add_argument('--force-update', action='store_true')
+        parser.add_argument('--zone', required=True, help="The name of the zone to update")
+        parser.add_argument('--record-name', required=True, help="The name of the record to update, eg if --zone is example.com and --record-name is extrn, extrn.example.com will be updated")
+        parser.add_argument('--cf-auth-key', required=False, help="Cloudflare auth key. This is required if the CF_AUTH_KEY environment variable isn't set")
+        parser.add_argument('--cf-auth-email', required=False, help="Cloudflare auth email. This is required if the CF_AUTH_EMAIL environment variable isn't set")
+        parser.add_argument('--stun-server', default=None, help="STUN server to query")
+        parser.add_argument('--stun-port', default=3478, type=int, help="Port of the STUN server")
+        parser.add_argument('--ttl', default=120, help="TTL of the new DNS record. This is only used if the record doesn't ready exists")
+        parser.add_argument('--force-update', action='store_true', help="By default, the tool won't attempt to update the record if it is already correct. Use this to override this behavior")
 
         log_group = parser.add_mutually_exclusive_group()
-        log_group.add_argument('--debug', action='store_true')
-        log_group.add_argument('--quiet', action='store_true')
+        log_group.add_argument('--debug', action='store_true', help="Output lots of information to help with debugging")
+        log_group.add_argument('--quiet', action='store_true', help="Don't output anything")
 
         args = parser.parse_args()
 
