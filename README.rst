@@ -10,6 +10,7 @@ Quick Start
 -----------
 
 ::
+
    CF_AUTH_EMAIL="foo@bar.com" CF_AUTH_KEY="abcde1234" cloudflare_stun --zone example.com --record-name extrn
 
 Will create or update an A record for ``extrn.example.com`` with the public IP address of the machine running the tool.   
