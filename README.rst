@@ -60,4 +60,4 @@ Usage
 Known Issues
 ------------
 
- * This tool only support Python 2.7, because the underlying STUN library doesn't support Python 3.x - See `the upstream repo <https://github.com/jtriley/pystun>`_ for details.
+* This tool only support Python 2.7, because the underlying STUN library doesn't support Python 3.x - See `the upstream repo <https://github.com/jtriley/pystun>`_ for details.
