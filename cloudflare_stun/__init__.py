@@ -152,7 +152,7 @@ class App():
         parser.add_argument('--cf-auth-email', required=False, help="Cloudflare auth email. This is required if the CF_AUTH_EMAIL environment variable isn't set")
         parser.add_argument('--stun-server', default=None, help="STUN server to query")
         parser.add_argument('--stun-port', default=3478, type=int, help="Port of the STUN server")
-        parser.add_argument('--ttl', default=120, help="TTL of the new DNS record. This is only used if the record doesn't ready exists")
+        parser.add_argument('--ttl', default=120, help="TTL of the new DNS record. This is only used if the record doesn't already exist")
         parser.add_argument('--force-update', action='store_true', help="By default, the tool won't attempt to update the record if it is already correct. Use this to override this behavior")
 
         log_group = parser.add_mutually_exclusive_group()

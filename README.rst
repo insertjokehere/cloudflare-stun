@@ -46,7 +46,7 @@ Usage
      --stun-port STUN_PORT           Port of the STUN server
 
      --ttl TTL                       TTL of the new DNS record. This is only used if the
-                                     record doesn't ready exists
+                                     record doesn't already exist
 
      --force-update                  By default, the tool won't attempt to update the
                                      record if it is already correct. Use this to override
