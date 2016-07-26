@@ -4,7 +4,7 @@ cloudflare-stun
 
 CloudFlare Dynamic DNS using STUN
 
-There are a few command line dynamic DNS clients that support CloudFlares' API, but most of these use services like `jsonip <jsonip.com>`_ to look up the external IP of a system. These services are great, but it would be better to use a standard protocol to do this. Fortunately, the STUN protocol exists for exactly this purpose.
+There are a few command line dynamic DNS clients that support CloudFlares' API, but most of these use services like `jsonip <http://jsonip.com>`_ to look up the external IP of a system. These services are great, but it would be better to use a standard protocol to do this. Fortunately, the STUN protocol exists for exactly this purpose.
 
 Quick Start
 -----------

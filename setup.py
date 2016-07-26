@@ -15,12 +15,15 @@ def read(*parts):
 
 setup(
     name='cloudflare_stun',
-    version='0.1dev1',
+    version='0.1dev2',
     packages=find_packages(),
     license='MIT',
     description="CloudFlare Dynamic DNS using STUN",
     long_description=read('README.rst'),
     install_requires=read('requirements.txt').split(),
+    author="Will Hughes",
+    author_email="will@willhughes.name",
+    url="https://github.com/insertjokehere/cloudflare-stun",
     entry_points={
         'console_scripts': [
             'cloudflare_stun = cloudflare_stun:App.main',
