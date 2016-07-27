@@ -20,7 +20,7 @@ Usage
 
 ::
 
-   cloudflare_stun [-h] --zone ZONE --record-name RECORD_NAME
+   cloudflare_stun [-h] --zone ZONE [--record-name RECORD_NAME]
                        [--cf-auth-key CF_AUTH_KEY]
                        [--cf-auth-email CF_AUTH_EMAIL]
                        [--stun-server STUN_SERVER] [--stun-port STUN_PORT]
@@ -33,7 +33,8 @@ Usage
   
      --record-name RECORD_NAME       The name of the record to update, eg if --zone is
                                      example.com and --record-name is extrn,
-                                     extrn.example.com will be updated
+                                     extrn.example.com will be updated. If omitted,
+                                     the root of the zone will be updated
      
      --cf-auth-key CF_AUTH_KEY       Cloudflare auth key. This is required if the
                                      CF_AUTH_KEY environment variable isn't set

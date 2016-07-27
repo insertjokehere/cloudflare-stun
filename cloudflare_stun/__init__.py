@@ -62,7 +62,10 @@ class App():
     def get_record_id(self, zone_name, record_name):
         zone_id = self.get_zone_id(zone_name)
 
-        target_zn = "{}.{}".format(record_name, zone_name)
+        if record_name != "":
+            target_zn = "{}.{}".format(record_name, zone_name)
+        else:
+            target_zn = zone_name
 
         resp = requests.get(
             App.CF_API_RECORD_LIST.format(zone_id),
@@ -147,7 +150,7 @@ class App():
     def main():
         parser = argparse.ArgumentParser()
         parser.add_argument('--zone', required=True, help="The name of the zone to update")
-        parser.add_argument('--record-name', required=True, help="The name of the record to update, eg if --zone is example.com and --record-name is extrn, extrn.example.com will be updated")
+        parser.add_argument('--record-name', required=False, default="", help="The name of the record to update, eg if --zone is example.com and --record-name is extrn, extrn.example.com will be updated. If omitted, the root of the zone will be updated")
         parser.add_argument('--cf-auth-key', required=False, help="Cloudflare auth key. This is required if the CF_AUTH_KEY environment variable isn't set")
         parser.add_argument('--cf-auth-email', required=False, help="Cloudflare auth email. This is required if the CF_AUTH_EMAIL environment variable isn't set")
         parser.add_argument('--stun-server', default=None, help="STUN server to query")
