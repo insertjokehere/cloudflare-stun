@@ -32,7 +32,6 @@ class App():
             'X-Auth-Key': self.cf_auth_key,
             'Content-Type': 'application/json'
         }
-        logger.debug(headers)
         return headers
 
     def get_external_ip(self):
