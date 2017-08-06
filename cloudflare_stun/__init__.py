@@ -4,8 +4,9 @@ import argparse
 import os
 import logging
 import json
+import time
 
-logger = logging.getLogger(__name__)
+logger = logging.getlogger(__name__)
 
 
 class App():
@@ -161,6 +162,10 @@ class App():
         log_group.add_argument('--debug', action='store_true', help="Output lots of information to help with debugging")
         log_group.add_argument('--quiet', action='store_true', help="Don't output anything")
 
+        daemonize_group = parser.add_mutually_exclusive_group()
+        daemonize_group.add_argument('--once', action='store_true', default=True, help="Check for changes once, then exit")
+        daemonize_group.add_argument('--every', type=int, required=False, help="Run every <n> seconds")
+
         args = parser.parse_args()
 
         cf_auth_key = App._get_from_environment(args, 'cf-auth-key')
@@ -172,4 +177,9 @@ class App():
             logging.basicConfig(level=logging.INFO)
 
         app = App(args.zone, args.record_name, cf_auth_key, cf_auth_email, args.stun_server, args.stun_port, args.ttl, args.force_update)
-        app.do_update()
+
+        while not args.once:
+            app.do_update()
+            if not args.once and args.every is not None:
+                logger.debug("Sleeping for {} seconds".format(args.every))
+                time.sleep(args.every)
