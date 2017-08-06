@@ -164,7 +164,7 @@ class App():
         log_group.add_argument('--quiet', action='store_true', help="Don't output anything")
 
         daemonize_group = parser.add_mutually_exclusive_group()
-        daemonize_group.add_argument('--once', action='store_true', default=True, help="Check for changes once, then exit")
+        daemonize_group.add_argument('--once', action='store_true', default=False, help="Check for changes once, then exit")
         daemonize_group.add_argument('--every', type=int, required=False, help="Run every <n> seconds")
 
         args = parser.parse_args()
@@ -179,8 +179,15 @@ class App():
 
         app = App(args.zone, args.record_name, cf_auth_key, cf_auth_email, args.stun_server, args.stun_port, args.ttl, args.force_update)
 
-        while not args.once:
+        run_once = args.every is None or args.once
+
+        if run_once:
             app.do_update()
-            if not args.once and args.every is not None:
+        else:
+            while True:
+                try:
+                    app.do_update()
+                except Exception:
+                    logger.exception("Failed to perform check")
                 logger.debug("Sleeping for {} seconds".format(args.every))
                 time.sleep(args.every)
